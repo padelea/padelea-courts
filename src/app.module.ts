@@ -5,6 +5,7 @@ import { CourtsModule } from './courts/courts.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -20,7 +21,9 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DB_NAME,
       autoLoadEntities:true,
       synchronize: true
-    })
+    }),
+    
+    CommonModule
   ],
   controllers: [AppController],
   providers: [AppService],
