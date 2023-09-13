@@ -18,18 +18,21 @@ export class CourtsController {
     return this.courtsService.findAll(paginationDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courtsService.findOne(+id);
+  @Get(':term')
+  findOne(@Param('term') term: string) {
+    return this.courtsService.findOne(term);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourtDto: UpdateCourtDto) {
+  update(
+    @Param('id') id: string, 
+    @Body() updateCourtDto: UpdateCourtDto
+  ) {
     return this.courtsService.update(+id, updateCourtDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.courtsService.remove(+id);
+  @Delete(':slug')
+  remove(@Param('slug') id: string) {
+    return this.courtsService.remove(id);
   }
 }

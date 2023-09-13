@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Court {
@@ -12,8 +12,32 @@ export class Court {
     @Column({default:false})
     enabled: boolean
 
+    @Column('text')
+    slug?:string
+
     //clubid
 
+    @BeforeInsert()
+    checkSlugInsert(){
+        if (!this.slug){
+            this.slug = this.name
+        }
+        this.slug = this.slug
+        .toLocaleLowerCase()
+        .replaceAll(' ', '_')
+        .replaceAll("'", "")
+    }
+
+    @BeforeUpdate()
+    checkSlugUpdate() {
+         
+        this.slug = this.slug
+            .toLocaleLowerCase()
+            .replaceAll(' ', '_')
+            .replaceAll("'", "")
+        
+        
+    }
 
 
 }

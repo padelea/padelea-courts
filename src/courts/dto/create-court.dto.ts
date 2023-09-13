@@ -1,4 +1,4 @@
-import { IsBoolean, IsString, MinLength } from "class-validator"
+import { IsBoolean, IsOptional, IsString, MinLength } from "class-validator"
 
 export class CreateCourtDto {
 
@@ -8,4 +8,7 @@ export class CreateCourtDto {
 
     @IsBoolean()
     enable:boolean
+
+    @IsOptional()
+    slug?:string
 }

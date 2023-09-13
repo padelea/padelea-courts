@@ -35,9 +35,13 @@ export class CourtsService {
     })
   }
 
-  async findOne(id: number) {
-    const court = await this.courtRepository.findOneBy({id})
-    
+  async findOne(term:string) {
+    let court : Court
+    const queryBuilder = this.courtRepository.createQueryBuilder()
+    court = await queryBuilder
+      .where('slug=:slug', {slug:term})
+      .getOne()
+      
     if (!court){
       throw new NotFoundException("The court doesn't exist in our DB")
     }
@@ -52,15 +56,19 @@ export class CourtsService {
     })
     if (!court) throw new NotFoundException("Court doesn't exist")
 
+    try {
     await this.courtRepository.save(court)
     return court
-
+    } catch(err){
+      console.log(err)
+    }
+    
   
   
   }
 
-  async remove(id: number) {
-    const court = await this.findOne(id)
+  async remove(term:string) {
+    const court = await this.findOne(term)
     await this.courtRepository.remove(court)
   }
 }
